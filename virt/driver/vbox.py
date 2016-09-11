@@ -133,7 +133,23 @@ def create(args, config, logger):
     if (not args.no_start): subprocess.call("{} startvm {} --type headless {}".format(CMD, name, verbose), shell=True)
 
 def destroy(args, config, logger):
-    unimplemented(args, config, logger)
+    name = "{}-{}".format(args.group, args.NAME) if (args.group != None) else args.NAME
+
+    if (name not in get_all_machines()):
+        logger.error("The machine '{}' does not exist".format(name))
+        sys.exit(7)
+    if (name in get_running_machines()):
+        logger.error("The machine '{}' is running, power if off first".format(name))
+        sys.exit(8)
+
+    verbose = "" if logger.isEnabledFor(logging.INFO) else "1>/dev/null"
+
+    if (args.delete):
+        logger.warn("Deleting all data for machine '{}'".format(name))
+        subprocess.call("{} unregistervm {} --delete {} 2>&1".format(CMD, name, verbose), shell=-True) # Another genius stderr output
+    else:
+        logger.info("Unregistering machine '{}', retaining data".format(name))
+        subprocess.call("{} unregistervm {} {}".format(CMD, name, verbose), shell=True)
 
 def start(args, config, logger):
     unimplemented(args, config, logger)

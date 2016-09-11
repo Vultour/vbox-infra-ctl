@@ -41,6 +41,7 @@ def define_arguments(driver, list_cb, create_cb, destroy_cb, start_cb, stop_cb):
 
     parser_destroy = subparsers.add_parser("destroy", help="Delete a virtual machine")
     parser_destroy.add_argument("NAME", help="Name of a virtual machine")
+    parser_destroy.add_argument("-g", "--group", help="Name of the group the virtual machine is in (you can also prefix the name with group- instead of passing in this option)")
     parser_destroy.add_argument("--delete", action="store_true", help="Delete the machine's files as well (only unregisters the machine without this option)")
     parser_destroy.set_defaults(func=destroy_cb)
 
