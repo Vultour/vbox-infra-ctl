@@ -1,0 +1,7 @@
+*
+!.gitkeep
+!*.py
+!virt/
+!virt/driver/
+!vbox/
+*.swp
