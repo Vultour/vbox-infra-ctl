@@ -1,5 +1,5 @@
 config = {
-    "app-name":         "dropbox-infra-ctl",
+    "app-name":         "vbox-infra-ctl",
 
     "virt-root":        "/home/virt",
     "vbox-dir":         "vbox",
